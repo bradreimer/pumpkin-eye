@@ -4,18 +4,23 @@ static const int servoPin = 18;
 const int EyeballMinAngle = -180;
 const int EyeballMaxAngle = 156;
 
-Servo servo1;
+Servo eyballServo1;
 
 void setup() {
 
   Serial.begin(115200);
-  servo1.attach(servoPin);
+  eyballServo1.attach(servoPin);
 }
 
 void loop() {
-  for(int posDegrees = EyeballMinAngle; posDegrees <= EyeballMaxAngle; posDegrees++) {
-    servo1.write(posDegrees);
-    delay(20);
-  }
-  delay(1000);
+  int eyeballAngle = random(EyeballMinAngle, EyeballMaxAngle);
+  int eyeballDelay = random(300, 4000);
+
+  Serial.print("Eyeball: angle=");
+  Serial.print(eyeballAngle);
+  Serial.print(" delay=");
+  Serial.println(eyeballDelay);
+
+  eyballServo1.write(eyeballAngle);
+  delay(eyeballDelay);
 }
