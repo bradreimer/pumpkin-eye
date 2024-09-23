@@ -1,17 +1,21 @@
-#include <Arduino.h>
+#include <ESP32Servo.h>
 
-const int LedPin = GPIO_NUM_32;
+static const int servoPin = 18;
+const int EyeballMinAngle = -180;
+const int EyeballMaxAngle = 156;
 
-// the setup function runs once when you press reset or power the board
+Servo servo1;
+
 void setup() {
-  // initialize digital pin LED_BUILTIN as an output.
-  pinMode(LedPin, OUTPUT);
+
+  Serial.begin(115200);
+  servo1.attach(servoPin);
 }
 
-// the loop function runs over and over again forever
 void loop() {
-  digitalWrite(LedPin, HIGH);  // turn the LED on (HIGH is the voltage level)
-  delay(1000);                      // wait for a second
-  digitalWrite(LedPin, LOW);   // turn the LED off by making the voltage LOW
-  delay(1000);                      // wait for a second
+  for(int posDegrees = EyeballMinAngle; posDegrees <= EyeballMaxAngle; posDegrees++) {
+    servo1.write(posDegrees);
+    delay(20);
+  }
+  delay(1000);
 }
